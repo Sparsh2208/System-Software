@@ -1,0 +1,21 @@
+Begin / get PROGADDR from operating system
+set CSADDR to PROGADDR (for first control section)
+while not end of input do
+ begin / read next input record (Header record for control section)
+ set CSLTH to control section length
+ search ESTAB for control section name
+ if found then
+ set error flag {duplicate external symbol}
+else / enter control section name into ESTAB with value CSADDR 
+while record type ≠ 'E' do
+begin /read next input record 
+if record type = 'D' then 
+for each symbol in the record do 
+begin / search ESTAB for symbol name
+ if found then
+set error flag (duplicate external symbol)
+else  /enter symbol into ESTAB with value 
+(CSADDR+ indicated address)
+end {for} /  end (while ≠ 'E'}
+ add CSLTH to CSADDR (starting address for next control section) 
+end {while not EOF} / end {Pass 1}
